@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Groundbreaking Landscapes | Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Base reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111827;
+      background-color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout helpers */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-small {
+      padding: 2.5rem 0;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid #e5e7eb;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .logo span {
+      color: #166534;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: #4b5563;
+      position: relative;
+    }
+
+    .main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.25rem;
+      width: 0;
+      height: 1px;
+      background-color: #111827;
+      transition: width 0.16s ease;
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    .main-nav a.is-active {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(circle at top left, #ecfdf3 0, #ffffff 60%);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 3rem;
+      padding: 3rem 0 4rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3.4vw, 3rem);
+      line-height: 1.08;
+      margin: 0 0 1rem;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 1.4rem;
+      max-width: 34rem;
+      color: #4b5563;
+      font-size: 1rem;
+    }
+
+    .hero-tagline {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      align-self: center;
+    }
+
+    .hero-aside-block {
+      border-radius: 1rem;
+      border: 1px solid #d1fae5;
+      background-color: #ecfdf3;
+      padding: 1.3rem 1.4rem;
+      font-size: 0.9rem;
+      color: #064e3b;
+    }
+
+    .hero-aside-block h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-aside-block p {
+      margin: 0;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.3rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background-color: #111827;
+      color: #ffffff;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+        transform 0.08s ease;
+    }
+
+    .btn:hover {
+      background-color: #020617;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #111827;
+      border-color: #d1d5db;
+    }
+
+    .btn-secondary:hover {
+      border-color: #111827;
+      background-color: #f9fafb;
+    }
+
+    /* Section headings */
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 0.9rem;
+      max-width: 28rem;
+    }
+
+    /* Projects list (Outerspace style) */
+    .projects {
+      background-color: #ffffff;
+    }
+
+    .project-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .project-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid #e5e7eb;
+      gap: 1rem;
+    }
+
+    .project-row a {
+      text-decoration: none;
+      font-size: 1rem;
+      text-transform: lowercase;
+    }
+
+    .project-row a span {
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .project-row a:hover span {
+      border-color: #111827;
+      color: #111827;
+    }
+
+    .project-location {
+      font-size: 0.85rem;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    /* Project highlight strip */
+    .project-highlight {
+      background-color: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .project-highlight-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .project-highlight h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+      text-transform: lowercase;
+    }
+
+    .project-highlight p {
+      margin: 0 0 0.8rem;
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .project-highlight-meta {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 1.1rem;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid #d1d5db;
+      color: #4b5563;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-media {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .project-media-placeholder {
+      border-radius: 0.9rem;
+      border: 1px solid #e5e7eb;
+      background: linear-gradient(135deg, #e5f3ff, #f9fafb);
+      padding: 3.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    /* About */
+    .about {
+      background-color: #ffffff;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 2.5rem;
+    }
+
+    .about-grid p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .about-card {
+      border-radius: 1rem;
+      border: 1px solid #e5e7eb;
+      padding: 1.6rem 1.5rem;
+      background-color: #f9fafb;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    .about-card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      white-space: nowrap;
+    }
+
+    /* Contact */
+    .contact {
+      background-color: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .contact-info p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    .contact-list li + li {
+      margin-top: 0.4rem;
+    }
+
+    .contact-list a {
+      color: #166534;
+      text-decoration: none;
+    }
+
+    .contact-list a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-form {
+      border-radius: 1rem;
+      border: 1px solid #e5e7eb;
+      padding: 1.6rem 1.5rem;
+      background-color: #ffffff;
+      display: grid;
+      gap: 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .contact-form label {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      padding: 0.6rem 0.7rem;
+      font: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: 2px solid #166534;
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+
+    .contact-note {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    /* Footer */
+    .site-footer {
+      padding: 1.3rem 0 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #6b7280;
+    }
+
+    .footer-links a:hover {
+      color: #111827;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .project-highlight-inner,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding-top: 2.5rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .main-nav {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .project-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .project-location {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">Groundbreaking <span>Landscapes</span></a>
+      <nav class="main-nav">
+        <a href="#projects" class="is-active">projects</a>
+        <a href="#about">about</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1 class="hero-title">
+          Landscape design and construction for outdoor living in the San Francisco Bay Area
+        </h1>
+        <p class="hero-subtitle">
+          Groundbreaking Landscapes creates custom designs and installations for many types of
+          outdoor spaces in Marin County and the greater San Francisco Bay Area. We turn existing
+          properties into practical, beautiful living spaces that fit each client’s budget and style.
+        </p>
+        <div class="btn-row">
+          <a href="#projects" class="btn">view projects</a>
+          <a href="#contact" class="btn btn-secondary">request a consultation</a>
+        </div>
+        <p class="hero-tagline">
+          design led · detail focused · built to last
+        </p>
+      </div>
+      <aside class="hero-aside">
+        <div class="hero-aside-block">
+          <h3>services</h3>
+          <p>
+            Full service design and build for planting, stonework, lap pools, concrete work,
+            decks, fencing, lighting, outdoor kitchens, fire features, turf, and more.
+          </p>
+        </div>
+        <div class="hero-aside-block">
+          <h3>location</h3>
+          <p>
+            Based in Marin County and serving all of the Bay Area, including San Francisco and
+            surrounding communities.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Projects list (Outerspace style) -->
+  <section id="projects" class="section projects">
+    <div class="container">
+      <div class="section-heading">
+        <h2>projects</h2>
+        <p>
+          A selection of residential gardens, roof gardens, and outdoor living spaces completed
+          by Groundbreaking Landscapes.
+        </p>
+      </div>
+      <ul class="project-list">
+        <li class="project-row">
+          <a href="#bebe"><span>bebe residence</span></a>
+          <span class="project-location">San Francisco, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#ehrenfeld"><span>ehrenfeld residence</span></a>
+          <span class="project-location">San Francisco, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#glenn-park"><span>glenn park residence</span></a>
+          <span class="project-location">San Francisco, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#kronquist"><span>kronquist residence</span></a>
+          <span class="project-location">San Francisco Bay Area</span>
+        </li>
+        <li class="project-row">
+          <a href="#kwong"><span>kwong residence</span></a>
+          <span class="project-location">San Francisco Bay Area</span>
+        </li>
+        <li class="project-row">
+          <a href="#pirce"><span>pirce roof garden</span></a>
+          <span class="project-location">San Francisco, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#richmond"><span>richmond district garden</span></a>
+          <span class="project-location">San Francisco, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#roth"><span>roth garden</span></a>
+          <span class="project-location">San Francisco Bay Area</span>
+        </li>
+        <li class="project-row">
+          <a href="#san-anselmo"><span>san anselmo residence</span></a>
+          <span class="project-location">San Anselmo, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#sequoia"><span>sequoia valley residence</span></a>
+          <span class="project-location">Marin County, California</span>
+        </li>
+        <li class="project-row">
+          <a href="#sidhu"><span>sidhu residence</span></a>
+          <span class="project-location">San Francisco Bay Area</span>
+        </li>
+        <li class="project-row">
+          <a href="#sorcher"><span>sorcher residence</span></a>
+          <span class="project-location">San Francisco Bay Area</span>
+        </li>
+        <li class="project-row">
+          <a href="#misc"><span>miscellaneous projects</span></a>
+          <span class="project-location">Roof gardens and outdoor rooms</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Project highlight (example detail like Outerspace project page) -->
+  <section id="bebe" class="section-small project-highlight">
+    <div class="container project-highlight-inner">
+      <div>
+        <h3>bebe residence</h3>
+        <div class="project-highlight-meta">
+          San Francisco, California · residential garden with lap pool
+        </div>
+        <p>
+          Designed and built entirely by Groundbreaking Landscapes, this compact San Francisco
+          garden includes a bluestone tile patio, a steel fire pit, and an Endless Pool.
+          The team handled the complete installation for concrete, electric, and natural gas.
+        </p>
+        <p>
+          Groundbreaking Landscapes is the preferred factory trained installer of Endless Pools
+          in the greater San Francisco metro area. Additional lap pool installations are
+          available in the lap pools gallery.
+        </p>
+        <div>
+          <span class="project-tag">lap pool</span>
+          <span class="project-tag">outdoor living</span>
+          <span class="project-tag">city garden</span>
+        </div>
+      </div>
+      <div class="project-media">
+        <!-- Replace with real image paths from your gallery -->
+        <div class="project-media-placeholder">
+          Project photography for the Bebe Residence goes here.  
+          Replace this box with images such as <code>bebe-01.jpg</code>, <code>bebe-02.jpg</code>, and more from the existing gallery.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple anchors for other projects (you can expand these later) -->
+  <section id="ehrenfeld"></section>
+  <section id="glenn-park"></section>
+  <section id="kronquist"></section>
+  <section id="kwong"></section>
+  <section id="pirce"></section>
+  <section id="richmond"></section>
+  <section id="roth"></section>
+  <section id="san-anselmo"></section>
+  <section id="sequoia"></section>
+  <section id="sidhu"></section>
+  <section id="sorcher"></section>
+  <section id="misc"></section>
+
+  <!-- About -->
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section-heading">
+        <h2>about</h2>
+        <p>
+          A design and build landscape firm creating indoor outdoor spaces tailored to each
+          property and client.
+        </p>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p>
+            Groundbreaking Landscapes is based in Marin County and specializes in custom designs
+            and installations for many types of outdoor spaces. The focus is on turning existing
+            properties into beautiful and useable living spaces that reflect the way people
+            actually live.
+          </p>
+          <p>
+            Client involvement is encouraged at every step. Planting palettes, stone, wood, and
+            material choices are developed together so the finished landscape feels personal and
+            cohesive. Each site is studied carefully, with attention to microclimate and the
+            character of the architecture.
+          </p>
+          <p>
+            The firm handles both design and construction, which keeps details aligned from the
+            first sketch through final planting.
+          </p>
+        </div>
+        <aside class="about-card">
+          <h3>what we build</h3>
+          <p>
+            Full service landscape design and construction for Bay Area homes.
+          </p>
+          <div class="tag-list">
+            <span class="tag">landscape design</span>
+            <span class="tag">planting design</span>
+            <span class="tag">lap pools and spas</span>
+            <span class="tag">decks and fences</span>
+            <span class="tag">outdoor kitchens</span>
+            <span class="tag">fireplace and fire pit</span>
+            <span class="tag">patios and terraces</span>
+            <span class="tag">concrete work</span>
+            <span class="tag">retaining walls</span>
+            <span class="tag">lighting</span>
+            <span class="tag">turf</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <div class="section-heading">
+        <h2>contact</h2>
+        <p>
+          Share a little about your property and your goals, and we can schedule a time to walk
+          the site together.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>
+            For project inquiries and consultations, please reach out by phone or email.
+          </p>
+          <ul class="contact-list">
+            <li><strong>phone:</strong> <a href="tel:14156996209">(415) 699 6209</a></li>
+            <li><strong>email:</strong> <a href="mailto:mikebovarnick@aol.com">mikebovarnick@aol.com</a></li>
+            <li><strong>location:</strong> Marin County and the greater San Francisco Bay Area</li>
+          </ul>
+        </div>
+        <form class="contact-form">
+          <label>
+            name
+            <input type="text" name="name" placeholder="your name" />
+          </label>
+          <label>
+            email
+            <input type="email" name="email" placeholder="you@example.com" />
+          </label>
+          <label>
+            project location
+            <input type="text" name="location" placeholder="city or neighborhood" />
+          </label>
+          <label>
+            project details
+            <textarea name="message" rows="4" placeholder="briefly describe your space and what you would like to change or add."></textarea>
+          </label>
+          <button type="submit" class="btn">send message</button>
+          <p class="contact-note">
+            This is a static form. On a live site your developer or host can connect it to email
+            or a form service.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Groundbreaking Landscapes. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://www.groundbreakinglandscapes.com/" target="_blank" rel="noreferrer">
+          current site
+        </a>
+        <a href="https://www.yelp.com/biz/groundbreaking-landscapes-san-francisco" target="_blank" rel="noreferrer">
+          yelp
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
